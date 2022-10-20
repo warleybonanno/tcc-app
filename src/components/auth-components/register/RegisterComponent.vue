@@ -4,86 +4,145 @@
       <div class="col-lg-6 offset-lg-3 col-sm-10 offset-sm-1">
 
         <form
-          class="text-center border border-primary p-5"
-          style="margin-top:70px;height:auto;padding-top:100px !important;"
+          class="text-center p-5"
           v-on:submit.prevent="registerSubmitUserForm()"
         >
-        <h2 class="center">Cadastre-se</h2>
-        <!--INICIO BLOCO: NOME-->
-        <label for="name">Nome:
-          <input
-          type="text"
-          id="name"
-          name="name"
-          class="form-control mb-5"
-          placeholder="Digite o seu nome completo"
-          v-model="registerForm.name"
+        <h2>Cadastre-se</h2>
+        <h5 class="register-text">É rápido e fácil</h5>
+        <hr class="solid">
+        <!-- Name Block Start -->
+          <MazInput
+            v-model="registerForm.name"
+            placeholder="Nome Completo"
+            type="text"
+            class="w-100 mb-3"
+            required
+            dark
+            :class="{
+                'is-invalid': isSubmitted && $v.registerForm.name.$error,
+            }"
           />
           <div
             v-if="isSubmitted && !$v.registerForm.name.required"
-            class="invalid-feedback"> O campo nome é obrigatório!
+            class="invalid-feedback"
+          >
+            <span>O campo nome completo é obrigatório!</span>
           </div>
-        </label>
-        <!--FINAL BLOCO: NOME-->
+        <!-- Name Block End -->
 
         <!--INICIO BLOCO: E-MAIL-->
-        <label for="email">Email:
-          <input
-          type="email"
-          id="email"
-          name="email"
-          class="form-control mb-5"
-          placeholder="Digite o seu e-mail"
-          v-model="registerForm.email"
+          <MazInput
+            v-model="registerForm.email"
+            placeholder="E-mail"
+            type="email"
+            class="w-100 mb-3"
+            left-icon-name="email"
+            dark
+            :class="{
+              'is-invalid': isSubmitted && $v.registerForm.email.$error,
+            }"
           />
           <div
-            v-if="isSubmitted && !$v.registerForm.email.required"
-            class="invalid-feedback"> O campo e-mail é obrigatório!
+            v-if="isSubmitted && $v.registerForm.email.$error"
+            class="invalid-feedback"
+          >
+            <span v-if="!$v.registerForm.email.required">
+              O campo e-mail é obrigatório!
+            </span>
+            <span v-if="!$v.registerForm.email.email">
+              E-mail inválido!
+            </span>
           </div>
-        </label>
         <!--FINAL BLOCO: E-MAIL-->
 
-        <!--INICIO BLOCO: Phone-->
-        <label for="phone">Telefone:
-          <input
-          type="text"
-          id="phone"
-          name="phone"
-          class="form-control mb-5"
-          placeholder="Digite seu telefone"
-          v-model="registerForm.phone"
+        <!-- Phone Block Start -->
+          <MazPhoneNumberInput
+            v-model="registerForm.phone"
+            placeholder="Telefone"
+            class="w-100 mb-3"
+            noValidation
+            required
+            dark
+            @update="resultsExample = $event"
+            :translations="{
+              countrySelectorLabel: 'Código do país',
+              countrySelectorError: 'Escolha um país',
+              phoneNumberLabel: 'Número de telefone',
+              example: 'Exemplo :'
+            }"
+            :class="{
+                'is-invalid': isSubmitted && $v.registerForm.phone.$error,
+            }"
           />
           <div
-            v-if="isSubmitted && !$v.registerForm.phone.required"
-            class="invalid-feedback"> O campo telefone é obrigatório!
+            v-if="isSubmitted && $v.registerForm.phone.required"
+            class="invalid-feedback"
+          >
+            <span v-if="!$v.registerForm.phone.required">
+              O campo telefone é obrigatório!
+            </span>
+            <span v-if="!$v.registerForm.phone.minLength">
+              O campo telefone está incompleto!
+            </span>
           </div>
-        </label>
-        <!--FINAL BLOCO: Phone-->
+        <!-- Phone Block End -->
 
-        <!--INICIO BLOCO: Password-->
-        <label for="password_hash">Senha:
-          <input
-          type="password"
-          id="password_hash"
-          name="password_hash"
-          class="form-control mb-5"
-          placeholder="Digite a sua senha"
-          v-model="registerForm.password_hash"
+        <!-- Password Block Start -->
+          <MazInput
+            v-model="registerForm.password_hash"
+            placeholder="Senha"
+            type="password"
+            class="w-100 mb-3"
+            required
+            dark
+            left-icon-name="lock"
+            :class="{
+                'is-invalid': isSubmitted && $v.registerForm.password_hash.$error,
+            }"
           />
           <div
-            v-if="isSubmitted && !$v.registerForm.password_hash.required"
-            class="invalid-feedback"> O campo senha é obrigatório!
+            v-if="isSubmitted && $v.registerForm.password_hash.$error"
+            class="invalid-feedback"
+          >
+            <span v-if="!$v.registerForm.password_hash.required">
+              O campo senha é obrigatório!
+            </span>
+            <span v-if="!$v.registerForm.password_hash.minLength">
+              A senha deve conter pelo menos 6 caracteres!
+            </span>
           </div>
-        </label>
-        <!--FINAL BLOCO: Password-->
+        <!-- Password Block End -->
+
+        <!-- Password Block Start -->
+          <MazInput
+            v-model="registerForm.repeatPassword"
+            placeholder="Repita a Senha"
+            type="password"
+            class="w-100 mb-3"
+            required
+            dark
+            left-icon-name="lock"
+            :class="{
+                'is-invalid': isSubmitted && $v.registerForm.repeatPassword.$error,
+            }"
+          />
+          <div
+            v-if="isSubmitted && $v.registerForm.repeatPassword.$error"
+            class="invalid-feedback"
+          >
+            <span v-if="!$v.registerForm.repeatPassword.sameAsPassword">
+              As senhas devem ser identicas!
+            </span>
+          </div>
+        <!-- Password Block End -->
 
         <p class="center">
-          Já possui uma conta cadastrada?<router-link to="/">Faça o login aqui</router-link>
+          Já possui uma conta cadastrada?<br><router-link to="/">Faça o login aqui</router-link>
         </p>
 
         <!--INICIO BLOCO: Botão Submit-->
         <center>
-          <button @click="submitRegisterUser" class="btn btn-primary btn-block w-75 my-4">
+          <button @click="submitRegisterUser" class="btn btn-block w-100 my-4">
             Cadastrar
           </button>
         </center>

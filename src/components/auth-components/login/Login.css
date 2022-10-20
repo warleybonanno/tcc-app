@@ -1,0 +1,51 @@
+.container {
+    background-color: #000226;
+}
+
+.col-8 {
+    height: 100%;
+    align-self: center;
+    padding-right: 50px;
+}
+
+form {
+    margin-top:100px;
+    margin-bottom: 100px;
+    height:auto;
+    padding-top: 50px !important;
+    border-color: #FC5A05;
+    border: #FC5A05 solid 1px;
+    border-radius: 3px;
+}
+
+span {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px !important;
+    margin-top: 2px;
+}
+
+.login-text {
+    margin-bottom: 25px;
+}
+
+.btn {
+    background-color: #FC5A05;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+.btn:hover {
+    color: white;
+    border: none;
+}
+
+.invalid-feedback {
+    margin-bottom: 20px !important;
+    margin-top: 0px !important;
+}
+
+MazInput {
+    margin-bottom: 10px;
+}

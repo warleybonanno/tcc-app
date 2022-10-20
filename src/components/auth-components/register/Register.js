@@ -1,5 +1,7 @@
 import swal from 'sweetalert';
-import { required, email, minLength } from 'vuelidate/lib/validators';
+import {
+  required, email, minLength, sameAs,
+} from 'vuelidate/lib/validators';
 import RegisterService from '@/services/RegisterService';
 
 export default {
@@ -11,6 +13,7 @@ export default {
         email: null,
         phone: null,
         password_hash: null,
+        repeatPassword: null,
         role: 'User',
       },
       isSubmitted: false,
@@ -20,9 +23,10 @@ export default {
   validations: {
     registerForm: {
       name: { required },
-      email: { required },
-      phone: { required },
-      password_hash: { required },
+      email: { required, email },
+      phone: { required, minLength: minLength(13) },
+      password_hash: { required, minLength: minLength(6) },
+      repeatPassword: { required, sameAsPassword: sameAs('password_hash') },
     },
   },
 
@@ -31,7 +35,6 @@ export default {
 
     async submitRegisterUser() {
       try {
-        debugger;
         this.isSubmitted = true;
 
         this.$v.$touch();
@@ -45,8 +48,19 @@ export default {
           return;
         }
 
-        await RegisterService.registerNewUser(this.registerForm);
-        this.$router.push('/');
+        const register = await RegisterService.registerNewUser(this.registerForm);
+        if (Object.prototype.hasOwnProperty.call(register, 'id')) {
+          this.$router.push('/');
+          return;
+        }
+        if (Object.prototype.hasOwnProperty.call(register, 'msg')) {
+          swal({
+            title: 'Oops!',
+            text: 'E-mail já cadastrado na base de dados!',
+            icon: 'error',
+          });
+          return;
+        }
       } catch (error) {
         debugger;
         swal({

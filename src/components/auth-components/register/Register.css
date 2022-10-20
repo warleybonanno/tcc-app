@@ -1,0 +1,44 @@
+span {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px !important;
+    margin-top: 2px;
+}
+
+.btn {
+    background-color: #FC5A05;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+.btn:hover {
+    color: white;
+    border: none;
+}
+
+.invalid-feedback {
+    margin-bottom: 20px !important;
+    margin-top: 0px !important;
+}
+
+form {
+    margin-top:50px;
+    margin-bottom: 50px;
+    height:auto;
+    padding-top: 50px !important;
+    border-color: #FC5A05;
+    border: #FC5A05 solid 1px;
+    border-radius: 3px;
+}
+
+.register-text {
+    margin-bottom: 15px;
+    color: white;
+}
+
+hr.solid {
+    border-top: 3px solid #bbb;
+    margin-bottom: 20px;
+}
+  

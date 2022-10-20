@@ -1,0 +1,37 @@
+#nav {
+    background-color: #000226;
+    border-bottom: 1px solid #DDD;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#nav #logo-url {
+   margin: auto;
+   margin-left: 0; 
+}
+
+#title-center {
+    margin: auto;
+    margin-left: 30px; 
+    color: #FFFFFF;
+    font-size: 30px;
+}
+
+#logo {
+    width: 150px;
+    height: auto;
+}
+
+#nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 12px;
+    transition: .5s;
+}
+
+#nav a:hover {
+    color: #FD6341;
+    text-decoration: none;
+}
